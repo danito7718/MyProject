@@ -3,7 +3,6 @@
 
 #include "Items/Item.h"
 #include "DrawDebugHelpers.h"
-#include "MyProject2/MyProject2.h"
 #include "MyProject2/DebugMacros.h"
 
 
@@ -21,11 +20,17 @@ void AItem::BeginPlay()
 	Super::BeginPlay();
 	
 	UWorld* World = GetWorld();
+	SetActorLocation(FVector(0.f, 0.f, 300.f));
+	SetActorRotation(FRotator(0.f, 0.f, 90.f));
 	FVector Forward = GetActorForwardVector();
 	FVector Location = GetActorLocation();
 
+	
+
 	DRAW_SPHERE(Location);
-	//DRAW_VECTOR();
+	//DRAW_LINE(Location, Location + Forward * 100.f);
+	//DRAW_POINT(Location + Forward * 100.f);
+	DRAW_VECTOR(Location, Location + Forward * 100.f);
 	
 	
 }
