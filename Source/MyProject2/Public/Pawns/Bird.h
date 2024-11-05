@@ -11,6 +11,8 @@ class UCapsuleComponent;
 class USkeletalMeshComponent;
 class UInputMappingContext;
 class UInputAction;
+//Shit I added from Internet to work
+class UPawnMovementComponent;
 
 UCLASS()
 class MYPROJECT2_API ABird : public APawn
@@ -36,7 +38,13 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input)
 	UInputAction* MoveAction;
 
+
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input)
+	UInputAction* LookAction;
+
 	void Move(const FInputActionValue& Value);
+	void Look(const FInputActionValue& Value);
 
 private:
 	UPROPERTY(VisibleAnywhere)
@@ -45,5 +53,9 @@ private:
 
 	UPROPERTY(VisibleAnywhere)
 	USkeletalMeshComponent* BirdMesh;
+
+	//Shit I added from Internet to work
+	UPROPERTY(VisibleAnywhere)
+	UPawnMovementComponent* MovementComponent;
 
 };

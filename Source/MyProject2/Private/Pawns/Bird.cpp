@@ -2,9 +2,11 @@
 
 #include "Components/CapsuleComponent.h"
 #include "Components/SkeletalMeshComponent.h"
+#include "Components/InputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "EnhancedInputComponent.h"
-#include "Components/InputComponent.h"
+//Shit I added from Internet to work
+#include "GameFramework/FloatingPawnMovement.h"
 #include "Pawns/Bird.h"
 
 
@@ -13,6 +15,9 @@ ABird::ABird()
 {
  	// Set this pawn to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
+
+	//Shit I added from Internet to work
+	MovementComponent = CreateDefaultSubobject<UFloatingPawnMovement>(TEXT("MovementComponent"));
 
 	Capsule = CreateDefaultSubobject<UCapsuleComponent>(TEXT("Capsule"));
 	Capsule->SetCapsuleHalfHeight(20.f);
@@ -38,15 +43,25 @@ void ABird::BeginPlay()
 		}
 	}
 }
-
+//MoveForward InputAction
 void ABird::Move(const FInputActionValue& Value)
 {
-	const bool CurrentValue = Value.Get<bool>();
-	if (CurrentValue)
+	const float DirectionValue = Value.Get<float>();
+	if (Controller && (DirectionValue != 0.f))
 	{
-		UE_LOG(LogTemp, Warning, TEXT("IA_Move triggered"));
+		FVector Forward = GetActorForwardVector();
+		AddMovementInput(Forward, DirectionValue);
 	}
+}
 
+void ABird::Look(const FInputActionValue& Value)
+{
+	const FVector2D LookAxisValue = Value.Get<FVector2D>();
+	if (GetController())
+	{
+		AddControllerYawInput(LookAxisValue.X);
+		AddControllerPitchInput(LookAxisValue.Y);
+	}
 }
 
 // Called every frame
@@ -64,6 +79,10 @@ void ABird::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	if (UEnhancedInputComponent* EnhancedInputComponent = CastChecked<UEnhancedInputComponent>(PlayerInputComponent))
 	{
 		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ABird::Move);
+		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ABird::Look);
 	}
+
+
+
 }
 
