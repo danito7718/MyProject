@@ -14,6 +14,9 @@ class UInputAction;
 //Shit I added from Internet to work
 class UPawnMovementComponent;
 
+class USpringArmComponent;
+class UCameraComponent;
+
 UCLASS()
 class MYPROJECT2_API ABird : public APawn
 {
@@ -58,4 +61,9 @@ private:
 	UPROPERTY(VisibleAnywhere)
 	UPawnMovementComponent* MovementComponent;
 
+	UPROPERTY(VisibleAnywhere)
+	USpringArmComponent* SpringArm;
+
+	UPROPERTY(VisibleAnywhere)
+	UCameraComponent* ViewCamera;
 };
