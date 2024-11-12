@@ -14,6 +14,10 @@ AMyCharacter::AMyCharacter()
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	bUseControllerRotationPitch = false;
+	bUseControllerRotationYaw = false;
+	bUseControllerRotationRoll = false;
+
 	SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArm"));
 	SpringArm->SetupAttachment(GetRootComponent());
 	SpringArm->TargetArmLength = 300.f;
@@ -52,25 +56,18 @@ void AMyCharacter::Look(const FInputActionValue& Value)
 
 void AMyCharacter::Move(const FInputActionValue& Value)
 {
-	// if (ActionState != EActionState::EAS_Unoccupied) return;
 	const FVector2D MovementVector = Value.Get<FVector2D>();
 
-
-	const FRotator Rotation = Controller->GetControlRotation();
-	const FRotator YawRotation(0.f, Rotation.Yaw, 0.f);
+	const FRotator ControlRotation = Controller->GetControlRotation();
+	const FRotator YawRotation(0.f, ControlRotation.Yaw, 0.f);
 
 	const FVector ForwardDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
-	AddMovementInput(ForwardDirection, MovementVector.Y);
-	const FVector RightDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
-	AddMovementInput(RightDirection, MovementVector.X);
-	/*
-	const FVector Forward = GetActorForwardVector();
-	AddMovementInput(Forward, MovementVector.Y);
+	AddMovementInput(ForwardDirection, MovementVector.Y);  // Use Y for forward/backward movement
 
-	const FVector Right = GetActorRightVector();
-	AddMovementInput(Right, MovementVector.X);
-	*/
+	const FVector RightDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
+	AddMovementInput(RightDirection, MovementVector.X);  // Use X for right/left movement
 }
+
 
 // Called every frame
 void AMyCharacter::Tick(float DeltaTime)
