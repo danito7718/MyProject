@@ -55,6 +55,21 @@ void AMyCharacter::Look(const FInputActionValue& Value)
 	AddControllerYawInput(LookAxisVector.X);
 }
 
+void AMyCharacter::Attack(const FInputActionValue& Value)
+{
+
+}
+
+void AMyCharacter::Dodge(const FInputActionValue& Value)
+{
+
+}
+
+void AMyCharacter::EKeyPressed(const FInputActionValue& Value)
+{
+
+}
+
 void AMyCharacter::Move(const FInputActionValue& Value)
 {
 	const FVector2D MovementVector = Value.Get<FVector2D>();
@@ -86,8 +101,13 @@ void AMyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 	{
 		EnhancedInputComponent->BindAction(CharacterMovementAction, ETriggerEvent::Triggered, this, &AMyCharacter::Move);
 		EnhancedInputComponent->BindAction(CharacterLookingAction, ETriggerEvent::Triggered, this, &AMyCharacter::Look);
+		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Triggered, this, &AMyCharacter::Jump);
+	    EnhancedInputComponent->BindAction(EKeyAction, ETriggerEvent::Triggered, this, &AMyCharacter::EKeyPressed);
+		EnhancedInputComponent->BindAction(AttackAction, ETriggerEvent::Triggered, this, &AMyCharacter::Attack);
+		EnhancedInputComponent->BindAction(DodgeAction, ETriggerEvent::Triggered, this, &AMyCharacter::Dodge); 
 	}
-
-
 }
+
+
+
 
