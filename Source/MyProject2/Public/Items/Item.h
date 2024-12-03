@@ -48,17 +48,18 @@ protected:
 	virtual void OnSphereEndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
 
 	
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+	UStaticMeshComponent* ItemMesh;
 
-
+	
 private:
 	UPROPERTY(EditAnywhere)
 	float RunningTime;
-
-	UPROPERTY(VisibleAnywhere)
-	UStaticMeshComponent* ItemMesh;
-
 	UPROPERTY(VisibleAnywhere)
 	USphereComponent* Sphere;
+	
+
+	
 
 };
 

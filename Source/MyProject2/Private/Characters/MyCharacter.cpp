@@ -41,10 +41,6 @@ void AMyCharacter::BeginPlay()
 			Subsystem->AddMappingContext(CharacterMovementContext, 0);
 		}
 	}
-
-
-
-
 }
 
 void AMyCharacter::Look(const FInputActionValue& Value)
