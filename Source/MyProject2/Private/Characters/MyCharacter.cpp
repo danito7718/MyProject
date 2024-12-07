@@ -10,6 +10,7 @@
 
 
 
+
 // Sets default values
 AMyCharacter::AMyCharacter()
 {
@@ -63,12 +64,16 @@ void AMyCharacter::Dodge(const FInputActionValue& Value)
 
 }
 
+
+
 void AMyCharacter::EKeyPressed(const FInputActionValue& Value)
 {
 	AWeapon* OverlappingWeapon = Cast<AWeapon>(OverlappingItem);
 	if (OverlappingWeapon)
 	{
-		OverlappingWeapon->Equip(GetMesh(), FName("RightHandScoket"));
+		OverlappingWeapon->IsWeaponPicked = true;
+		OverlappingWeapon->Equip(GetMesh(), FName("RightHandSocket"));
+		
 	}
 }
 
