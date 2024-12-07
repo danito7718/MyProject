@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "InputActionValue.h"
+#include "Items/Item.h"
 #include "MyCharacter.generated.h"
 
 class UInputMappingContext;
@@ -27,7 +28,10 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
-
+	FORCEINLINE void SetOverlappingItem(AItem* Item) 
+	{ 
+		OverlappingItem = Item; 
+	}
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -67,4 +71,7 @@ private:
 	UPROPERTY(VisibleAnywhere)
 	UCameraComponent* ViewCamera;
 
+
+	UPROPERTY(VisibleInstanceOnly)
+	AItem* OverlappingItem;
 };

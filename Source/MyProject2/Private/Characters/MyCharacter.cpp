@@ -4,6 +4,8 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "Items/Item.h"
+#include "Items/Weapons/Weapon.h"
 #include "Camera/CameraComponent.h"
 
 
@@ -63,7 +65,11 @@ void AMyCharacter::Dodge(const FInputActionValue& Value)
 
 void AMyCharacter::EKeyPressed(const FInputActionValue& Value)
 {
-
+	AWeapon* OverlappingWeapon = Cast<AWeapon>(OverlappingItem);
+	if (OverlappingWeapon)
+	{
+		OverlappingWeapon->Equip(GetMesh(), FName("RightHandScoket"));
+	}
 }
 
 void AMyCharacter::Move(const FInputActionValue& Value)
