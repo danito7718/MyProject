@@ -73,9 +73,10 @@ void AMyCharacter::EKeyPressed(const FInputActionValue& Value)
 	{
 		OverlappingWeapon->IsWeaponPicked = true;
 		OverlappingWeapon->Equip(GetMesh(), FName("RightHandSocket"));
-		
+		this->CharacterState = ECharacterState::ECS_EquippedOneHandedWeapon; // Fixed here
 	}
 }
+
 
 void AMyCharacter::Move(const FInputActionValue& Value)
 {

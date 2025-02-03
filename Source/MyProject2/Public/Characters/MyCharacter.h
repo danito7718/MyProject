@@ -6,12 +6,15 @@
 #include "GameFramework/Character.h"
 #include "InputActionValue.h"
 #include "Items/Item.h"
+#include "CharacterTypes.h"
 #include "MyCharacter.generated.h"
 
 class UInputMappingContext;
 class UInputAction;
 class USpringArmComponent;
 class UCameraComponent;
+
+
 
 UCLASS()
 class MYPROJECT2_API AMyCharacter : public ACharacter
@@ -31,6 +34,11 @@ public:
 	FORCEINLINE void SetOverlappingItem(AItem* Item) 
 	{ 
 		OverlappingItem = Item; 
+	}
+
+	FORCEINLINE ECharacterState GetCharacterState() const 
+	{
+		return CharacterState; 
 	}
 protected:
 	// Called when the game starts or when spawned
@@ -65,6 +73,9 @@ protected:
 
 
 private:
+
+	ECharacterState CharacterState = ECharacterState::ECS_Unequipped;
+
 	UPROPERTY(VisibleAnywhere)
 	USpringArmComponent* SpringArm;
 
